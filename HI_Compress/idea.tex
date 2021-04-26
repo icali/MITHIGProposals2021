@@ -11,17 +11,18 @@ We propose to develop a different approach to this telegenic creating a Machine 
 \begin{figure}[!ht]
     \vspace{-0.4cm}
     \begin{center}
-    \includegraphics[width=.5\textwidth]{CompSchema.png}
+    \includegraphics[width=.71\textwidth]{CompSchema.png}
     %\includegraphics[width=.25\textwidth,keepaspectratio]{outputFig}
-    \hspace{0.03\textwidth}
-    \includegraphics[width=.25\textwidth,keepaspectratio]{DmassVsCompRes.png}
+    \hspace{0.0\textwidth}
+    %\includegraphics[width=.25\textwidth,keepaspectratio]{}
+    \includegraphics[width=.27\textwidth]{HI_Compress/figure/aleph/Performance.pdf}
     \vspace{-0.5cm}
-    \caption{Left: Data flowchart showing then comporession steps and the interactions withe ML framework proposed. Righ: D0 candidate mass resolution as function of the compression algorithm tuning}
+    \caption{}
     \label{fig:concept}
     \end{center}
 \end{figure}
 
-Data reduction trough event selection either online or offline is a crucial aspect on the overall challange. As of today, trigger algorithms reconstruct partially the data and extract a subset of the physics observable that should be used for data analysis. While this approach guarantees data fidelity, it is too CPU demanding in particular in the optic of always increasing data rates(FIXME: add here references to sPHENIX and HL-LHC). We propose to develop a different approach using a ML framework including image recognition tecqniques. The RAW data produced by a detector may indeed be seen as an image from where the phsyics objects may be identified without the needs of their full reconstruction. A ANN and/or a GAN may be trained using data or MC containing the specific physics object of interest (FIXME: maybe mention proposal 2493). The first use case would be upply the algorithm to the CMS pixel detector.
+Data reduction trough event selection either online or offline is a crucial aspect on the overall challenge. As of today, trigger algorithms reconstruct partially the data and extract a subset of the physics observable that should be used for data analysis. While this approach guarantees data fidelity, it is too CPU demanding in particular in the optic of always increasing data rates(FIXME: add here references to sPHENIX and HL-LHC). We propose to develop a different approach using a ML framework including image recognition tecqniques. The RAW data produced by a detector may indeed be seen as an image from where the phsyics objects may be identified without the needs of their full reconstruction. A ANN and/or a GAN may be trained using data or MC containing the specific physics object of interest (FIXME: maybe mention proposal 2493). The first use case would be upply the algorithm to the CMS pixel detector.
  
 
 
@@ -42,39 +43,48 @@ a novel lossy universal compression algorithm embedded in an AI framework with t
 
 evaluating so far one GAN algorithm, tableGan (a convolutional neural network known for its performance and flexibility in representing data), with which we have created first demonstrators using cloud computing resources. These evaluations were performed using {\eecol} archived data from the ALEPH experiment (which ended data taking in 2000), for which the background levels are low, and the theoretical descriptions are more precise. The input and output point-clouds are based on particle momentum vector,  type and charge, as well as event multiplicity. Preliminary results are shown in Fig.~\ref{fig:concept} (right). Importantly this demonstrates that while the input for the tableGAN training was based on single particle observables, the GAN based algorithm could also describe correlated two-particle observables, such as the invariant mass distribution shown. This includes both the bulk (combinatorial) background shape and fine details in the simulation such as the $D^0$ meson resonance peak. In our approach, one could then use the output particles to perform other physics analysis (\eg, reconstruct other mesons decays). While still at an early stage, the ML implementation today is already demonstrating that it could generate {\eecol} events that are similar to real data. Before deciding on the final approach, other algorithms will be evaluated. These will include ctGAN, which was demonstrated to generate synthetic tabular data with high fidelity; $\alpha$-GAN, a hybrid approach combining a likelihood based model (variational auto-encoders, VAEs), and an implicit generative model (GANs) to combine an adversarial loss with a data reconstruction loss; VQ-VAE-2, a vector quantized VAE model, which uses hierarchical multi-scale latent maps for achieving an increased resolution; InterFaceGAN, which interprets the latent semantics learned by GANs for semantic face editing. 
 
+%algorithm text added by YJ
 
-OLD TEXT
-Prototypical examples of the current use of MC simulations are found in high-energy and nuclear physics, for both elementary proton-proton (\pp) or electron-electron (\eecol) collisions systems, and for the complex collisions involving atomic nuclei (\eA, \pA, or \aacol).  
-
-The complexity of one {\aacol} collisions (which can produce orders of magnitude more particles than one \eecol/{\pp} collision) also means that to-date, the richness of the underlying physics is much less well understood than for \eecol/{\pp}, making the MC tuning much less reliable. This is a major challenge for present and future experimental programs at the CERN Large Hadron Collider (LHC) and the RHIC and EIC facilities at Brookhaven National Laboratory.
+Having the capability to process live streaming data in cost-effective ways is now the fundamental requisite for the successful realization of Industrial Internet of Things (IIoT)~\cite{} which share the same fundamental nature with the high-energy experimental physics. The proposed data-reduction algorithm will support in-stream processing of data by using the Unsupervised Incremental Binning (UIB) technique~\cite{} which is based on the on-line agglomerative clustering method~\cite{}. UIB groups individual values into a small but sufficient maximum number of bins, for example default maximum 65,536 bins, with each bin recording observed sum, count, as well as other statistical properties. Upon a newly observed value, UIB creates a new bin with sum value and count 1; when the total number of created bins exceeds the default maximum quantity, two nearest bins are identified by a simple distance-comparison procedure and then they are merged as one new bin with summation of their sums and counts respectively such that the total number of bins remains un-exceeded. An observation is that the more astray the outliers, the more possibilities the outliers will not be merged with the inliers. In the case, similar values will be merged together as a cluster with the outliers being also accurately approximated, as opposed to the existing clustering algorithms which do not deal with the outliers considerably and are not easy to support in-stream processing. Furthermore, since the default maximum number of bins can be set as 65,536 easily represented by 16-bit short integers in stead of storing original 32-bit floating-point measurement values, the data volume can be reduced by at least a factor of two.  The complexity of the proposed algorithm will be $O(\log(k))$ for processing a newly observed value, in which $k$ stands for the number of maximum bins in the algorithm. This algorithm has been tested with the archived data taken by the ALEPH collaboration at LEP which is shown in Figure~\ref{}. The target data size is tune-able based on this lossy compression algorithm.
 
 
-(e.g., an estimated increase from ~40 to ~500PB of disk needs from 2020 to 2030).
 
-\vspace{-0.5cm}
-\paragraph{Proposal} Our plan has three main objectives as illustrated in the flow-chart in Fig.~\ref{fig:concept} (left):
 
-\textit{Data to ML:} To reproduce most accurately the collision environment (background, signal, and run conditions), we plan to develop a GAN algorithm fed by real data and capable of separating/tagging background samples from signal samples in the data itself.
 
-\textit{MC to ML:} To shorten the simulation time, the GAN/DNN framework will replace the `person made' and imperfect description of the detector response included in fast simulation through an automatic, data-driven generation of relevant parametrizations.
+%\clearpage
 
-\textit{Data to MC:} To uncover known and unknown physics processes in data, the GAN/DNN framework will be fed real events and tasked to disassemble them into basic sets of constituents, allowing a `particle level' analysis close to the one possible at ``truth'' level in MC events. Importantly, this approach will make it possible to continue analysis of archived data  from completed experiments, for which no new simulations are available.
+%OLD TEXT
+%Prototypical examples of the current use of MC simulations are found in high-energy and nuclear physics, for both elementary proton-proton (\pp) or electron-electron (\eecol) collisions systems, and for the complex collisions involving atomic nuclei (\eA, \pA, or \aacol).  
+
+%The complexity of one {\aacol} collisions (which can produce orders of magnitude more particles than one \eecol/{\pp} collision) also means that to-date, the richness of the underlying physics is much less well understood than for \eecol/{\pp}, making the MC tuning much less reliable. This is a major challenge for present and future experimental programs at the CERN Large Hadron Collider (LHC) and the RHIC and EIC facilities at Brookhaven National Laboratory.
+
+
+%(e.g., an estimated increase from ~40 to ~500PB of disk needs from 2020 to 2030).
+
+%\vspace{-0.5cm}
+%\paragraph{Proposal} Our plan has three main objectives as illustrated in the flow-chart in Fig.~\ref{fig:concept} (left):
+
+%\textit{Data to ML:} To reproduce most accurately the collision environment (background, signal, and run conditions), we plan to develop a GAN algorithm fed by real data and capable of separating/tagging background samples from signal samples in the data itself.
+
+%\textit{MC to ML:} To shorten the simulation time, the GAN/DNN framework will replace the `person made' and imperfect description of the detector response included in fast simulation through an automatic, data-driven generation of relevant parametrizations.
+
+%\textit{Data to MC:} To uncover known and unknown physics processes in data, the GAN/DNN framework will be fed real events and tasked to disassemble them into basic sets of constituents, allowing a `particle level' analysis close to the one possible at ``truth'' level in MC events. Importantly, this approach will make it possible to continue analysis of archived data  from completed experiments, for which no new simulations are available.
 
 %We note that our problem is not a simple data processing problem. By using real data, physics input, we add additional constrain and break/prevent the degeneracy of the algorithm. 
 
-\begin{figure}[!ht]
-\vspace{-0.4cm}
-\begin{center}
-\includegraphics[width=.5\textwidth]{}
-%\includegraphics[width=.25\textwidth,keepaspectratio]{outputFig}
-\hspace{0.03\textwidth}
-\includegraphics[width=.25\textwidth,keepaspectratio]{}
-\vspace{-0.5cm}
-\caption{}
-\label{fig:concept}
-\end{center}
-\end{figure}
-\vspace{-0.8cm}
+%\begin{figure}[!ht]
+%\vspace{-0.4cm}
+%\begin{center}
+%\includegraphics[width=.5\textwidth]{}
+%%\includegraphics[width=.25\textwidth,keepaspectratio]{outputFig}
+%\hspace{0.03\textwidth}
+%\includegraphics[width=.25\textwidth,keepaspectratio]{}
+%\vspace{-0.5cm}
+%\caption{}
+%\label{fig:concept}
+%\end{center}
+%\end{figure}
+%\vspace{-0.8cm}
 
 
 
