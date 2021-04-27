@@ -1,0 +1,22 @@
+\providecommand{\newblock}{}
+\begin{thebibliography}{1}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\eprint}[2][]{\url{#2}}
+% Bibliography created with iopart-num v2.1
+% /biblio/bibtex/contrib/iopart-num
+
+\bibitem{Wu:StreamingAnalytics}
+Y. Wu, S. Wang, L. Chen and C. Yu, “Streaming analytics processing in manufacturing performance monitoring and prediction”  {\em IEEE BigData 2017: \/} 3285-3289
+
+\bibitem{Wu:StreamingAnalytics}
+Y. Wu, J. Huang, Y. Yao, Y. Tien, C. Yu and S. Wang, "Detecting and Scoring Equipment Faults in Real-time during Semiconductor Test Processes," {\em Early Access in IEEE Design & Test, 2020 \/} doi: 10.1109/MDAT.2020.3036591
+
+\bibitem{Wu:StreamingAnalytics}
+I. D. Guedalia, M. London and M. Werman, “An On-line agglomerative clustering method for nonstationary data,”  {\em  Neural Comput. 11(2):521-540, 1999. \/} 
+
+\bibitem{Wu:StreamingAnalytics}
+B. Yael and T. Elad “A Streaming Parallel Decision Tree Algorithm,”  {\em Journal of Machine Learning Research \/} 11:849-872, 2010
+
+\end{thebibliography}
